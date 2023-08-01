@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {
+            text-align:center;
+            font-family:helvetica, sans-serif;
+            }
+
+            h1 {
+            font-size:3rem;
+            }
+
+            p {
+            font-size:1.5rem;
+            }
+
+            button {
+            font-size:2rem;
+            margin:20px;
+            display:inline;
+            padding:20px;
+            border-radius:15%;
+            }
+            
+            img {
+            display:inline;
+            width:20%;
+            margin-right:20px;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <h1>Can you beat the Robot?</h1>
+        <p>The world is being taken over by an evil robot and the only way to save it is by beating it at a game of Rock, Paper, Scissors!
+ 
+        <p> Pick one to save (or DESTROY) the world! </p>
+
+        <img src='https://i.imgur.com/BnXd7cy.png' alt='evil robot'>
+
+        <div>
+            <button type= "button" id = "rock">Rock</button>
+            <button type = "button" id = "paper">Paper</button>
+            <button type = "button" id = "scissors">Scissors</button>
+        </div>
+
+<script>
+        const player = {
+ currentChoice: null
+}
+
+const computer = {
+ currentChoice: null
+}
+
+const choices = ["rock", "paper", "scissors"];
+
+// Creating a function for the computer to randomize it's choice
+function computerChoice() {
+  const randomNumber = Math.floor(Math.random()*choices.length);
+  computer.currentChoice = choices[randomNumber];
+}
+
+// This function compares the player choice against the computer's choice using if and else statements
+
+function compareChoices() {
+  computerChoice();
+  
+  if (computer.currentChoice === player.currentChoice) {
+    displayResult("You and the Robot picked the same option, it's a tie!");
+  } else if (computer.currentChoice === choices[0]) {
+    if (player.currentChoice === choices[1]) {
+      displayResult("You picked " + player.currentChoice + " while the Robot picked " + computer.currentChoice + ", you win!");
+    } else { 
+      displayResult("The Robot picked " + computer.currentChoice + " and you picked " + player.currentChoice + ", you just killed everyone :(");
+    }
+  } else if (computer.currentChoice === choices[1]) {
+    if (player.currentChoice === choices[2]) {
+      displayResult("You picked " + player.currentChoice + " while the Robot picked " + computer.currentChoice + ", you win!");
+    } else {
+      displayResult("The Robot picked " + computer.currentChoice + " and you picked " + player.currentChoice + ", you just killed everyone :(");
+    }
+  } else if (computer.currentChoice === choices[2]) {
+    if (player.currentChoice === choices[0]) {
+      displayResult("You picked " + player.currentChoice + " while the Robot picked " + computer.currentChoice + ", you win!");
+    } else {
+      displayResult("The Robot picked " + computer.currentChoice + " and you picked " + player.currentChoice + ", you just killed everyone :(");
+    }
+  }
+}
+
+//creating functions to update the player's choices for the event listeners
+
+function updatePlayerChoiceRock() {
+      player.currentChoice = choices[0];
+      compareChoices();
+    }
+
+function updatePlayerChoicePaper() {
+      player.currentChoice = choices[1];
+      compareChoices();
+    }
+
+function updatePlayerChoiceScissors() {
+      player.currentChoice = choices[2];
+      compareChoices();
+    }
+
+// Event listeners for the buttons
+document.getElementById("rock").addEventListener("click", updatePlayerChoiceRock);
+
+document.getElementById("paper").addEventListener("click", updatePlayerChoicePaper);
+
+document.getElementById("scissors").addEventListener("click", updatePlayerChoiceScissors);
+
+//displays results when user clicks button
+function displayResult(result){ 
+  const resultText = document.createElement('p');
+  resultText.innerText = result;
+  document.body.appendChild(resultText);
+}
+</script>
+</body>
+</html>
